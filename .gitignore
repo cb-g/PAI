@@ -1,0 +1,5 @@
+.DS_Store
+.vscode
+.venv
+dev
+bayesian regression/linear/closed-form/dev

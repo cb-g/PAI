@@ -9,6 +9,30 @@
 
 ### 1.1.1 Weight-space-view closed-form Bayesian linear regression
 
+Prior: 
+
+$$ \begin{equation} \boldsymbol{w} \sim \mathcal{N} \big( \mathbf{0}, \sigma_\text{prior}^2 \boldsymbol{I}  \big) \end{equation} $$
+
+Likelihood: 
+
+$$ \begin{equation} \boldsymbol{y} \mid \boldsymbol{X} , \boldsymbol{w} \sim \mathcal{N} \big( \boldsymbol{X} \boldsymbol{w}, \sigma_\text{aleatoric}^2 \big) \end{equation} $$
+
+Posterior: 
+
+$$ \begin{equation} \boldsymbol{w} \mid \boldsymbol{X}, \boldsymbol{y} \sim \mathcal{N} \big( \boldsymbol{\mu}_\text{posterior}, \boldsymbol{\Sigma}_\text{posterior} \big) \end{equation} $$
+
+$$ \begin{equation} \boldsymbol{\Sigma}_\text{posterior} \doteq \big(\sigma_\text{aleatoric}^{-2} \boldsymbol{X}^{\top} \boldsymbol{X} + \sigma_\text{prior}^{-2} \boldsymbol{I}\big)^{-1} \end{equation} $$
+
+$$ \begin{equation}\begin{split} 
+\boldsymbol{\mu}_\text{posterior} &\doteq \big(\boldsymbol{X}^{\top} \boldsymbol{X} + \sigma_\text{aleatoric}^2 \sigma_\text{prior}^{-2} \boldsymbol{I}\big)^{-1} \boldsymbol{X}^{\top} \boldsymbol{y} \\ &= \sigma_\text{aleatoric}^{-2} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{X}^{\top} \boldsymbol{y} \\ 
+\end{split} \end{equation} $$ 
+
+Posterior predictive distribution:
+
+$$ \begin{equation} \begin{split} y^\ast \mid \boldsymbol{x}^\ast, \boldsymbol{X}, \boldsymbol{y} \sim  \mathcal{N} \big( &\boldsymbol{\mu}_\text{posterior}^{\top} \boldsymbol{x}^\ast , \\ &\boldsymbol{x}^{\ast \top} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{x}^\ast + \sigma_\text{aleatoric}^2 \big) \end{split} \end{equation} $$
+
+$$ \begin{equation} \sigma^2_\text{epistemic} \doteq \boldsymbol{x}^{\ast \top} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{x}^\ast \end{equation} $$
+
 ### 1.1.2 Weight-space-view approximate Bayesian linear regression
 
 ### 1.2 Non-linear

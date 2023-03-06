@@ -7,7 +7,9 @@
 
 ### 1.1 Linear
 
-### 1.1.1 Weight-space-view closed-form Bayesian linear regression
+### 1.1.1 Weight-space-view closed-form Bayesian linear regression 
+
+([1.1.1.py](bayesian_regression/linear/closed-form/1.1.1.py))
 
 Prior: 
 
@@ -32,6 +34,8 @@ Posterior predictive distribution:
 $$ \begin{equation} \begin{split} y^\ast \mid \boldsymbol{x}^\ast, \boldsymbol{X}, \boldsymbol{y} \sim  \mathcal{N} \big( &\boldsymbol{\mu}_\text{posterior}^{\top} \boldsymbol{x}^\ast , \\ &\boldsymbol{x}^{\ast \top} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{x}^\ast + \sigma_\text{aleatoric}^2 \big) \end{split} \end{equation} $$
 
 $$ \begin{equation} \sigma^2_\text{epistemic} \doteq \boldsymbol{x}^{\ast \top} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{x}^\ast \end{equation} $$
+
+<img src="bayesian_regression/linear/closed-form/1.1.1_posterior_predictive_distribution_3D.svg">
 
 ### 1.1.2 Weight-space-view approximate Bayesian linear regression
 

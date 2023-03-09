@@ -35,6 +35,10 @@ $$ \begin{equation} \begin{split} y^\ast \mid \boldsymbol{x}^\ast, \boldsymbol{X
 
 $$ \begin{equation} \sigma^2_\text{epistemic} \doteq \boldsymbol{x}^{\ast \top} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{x}^\ast \end{equation} $$
 
+<img src="bayesian_regression/linear/closed-form/1.1.1.svg">
+
+<img src="bayesian_regression/linear/closed-form/1.1.1_posterior_predictive_distribution_2D.svg">
+
 <img src="bayesian_regression/linear/closed-form/1.1.1_posterior_predictive_distribution_3D.svg">
 
 ### 1.1.2 Weight-space-view approximate Bayesian linear regression

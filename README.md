@@ -1,7 +1,23 @@
 # Probabilistic Artificial Intelligence (PAI)
 
 ## Language versions
-[![](https://img.shields.io/badge/Python-3.11.1-4571A1)](https://www.python.org/downloads/release/python-3111/) 
+[![](https://img.shields.io/badge/Python-3.11.1-4571A1)](https://www.python.org/downloads/release/python-3111/)
+
+## Run
+
+```zsh
+python3 src/main.py
+```
+
+## Dockerize
+
+```zsh
+docker build -t pai ./
+```
+
+```zsh
+docker run --rm pai
+```
 
 ## 1 Bayesian regression
 
@@ -9,7 +25,7 @@
 
 ### 1.1.1 Weight-space-view closed-form Bayesian linear regression 
 
-([1.1.1.py](bayesian_regression/linear/closed-form/1.1.1.py))
+([wsv_cf_blr.py](src/bayesian_regression/linear/closed_form/wsv_cf_blr.py))
 
 Prior: 
 
@@ -35,11 +51,11 @@ $$ \begin{equation} \begin{split} y^\ast \mid \boldsymbol{x}^\ast, \boldsymbol{X
 
 $$ \begin{equation} \sigma^2_\text{epistemic} \doteq \boldsymbol{x}^{\ast \top} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{x}^\ast \end{equation} $$
 
-<img src="bayesian_regression/linear/closed-form/1.1.1.svg">
+<img src="src/bayesian_regression/linear/closed_form/wsv_cf_blr.svg">
 
-<img src="bayesian_regression/linear/closed-form/1.1.1_posterior_predictive_distribution_2D.svg">
+<img src="src/bayesian_regression/linear/closed_form/wsv_cf_blr_posterior_predictive_distribution_2D.svg">
 
-<img src="bayesian_regression/linear/closed-form/1.1.1_posterior_predictive_distribution_3D.svg">
+<img src="src/bayesian_regression/linear/closed_form/wsv_cf_blr_posterior_predictive_distribution_3D.svg">
 
 ### 1.1.2 Weight-space-view approximate Bayesian linear regression
 

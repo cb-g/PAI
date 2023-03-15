@@ -23,7 +23,7 @@ docker run --rm pai
 
 ### 1.1 Linear
 
-### 1.1.1 Weight-space-view closed-form Bayesian linear regression 
+### 1.1.1 Weight-space-view closed-form Bayesian linear regression
 
 ([wsv_cf_blr.py](src/bayesian_regression/linear/closed_form/wsv_cf_blr.py))
 
@@ -97,7 +97,46 @@ aleatoric_upper_y1, aleatoric_upper_y2 = epistemic_y2, epistemic_y2 + 3 * sigma_
 
 ## 3 Gaussian processes
 
-### 3.1 GP with linear kernel aka function-space-view Bayesian linear regression
+### 3.1 Closed-form Gaussian processes
+
+Prior: 
+
+$$ f(\boldsymbol{x}) \sim \mathcal{GP}(m_{\text{prior}}(\boldsymbol{x}), k_{\text{prior}}(\boldsymbol{x},\boldsymbol{x}^{\prime})) $$
+
+Posterior: 
+
+$$ f(\boldsymbol{x}) \mid \boldsymbol{X}, \boldsymbol{y} \sim \mathcal{N}(m_{\mathrm{posterior}}(\boldsymbol{x}), k_{\mathrm{posterior}}(\boldsymbol{x},\boldsymbol{x}')) $$
+
+$$ y \mid \boldsymbol{X}, \boldsymbol{y} \sim \mathcal{N}(m_{\mathrm{posterior}}(\boldsymbol{x}), k_{\mathrm{posterior}}(\boldsymbol{x},\boldsymbol{x}') + \sigma_\text{aleatoric}^2) $$
+
+$$ m_{\mathrm{posterior}}(\boldsymbol{x}) \doteq m_{\mathrm{prior}}(\boldsymbol{x}) + \boldsymbol{k}(\boldsymbol{x},\boldsymbol{X}) [\boldsymbol{K}(\boldsymbol{X},\boldsymbol{X}) + \sigma_\text{aleatoric}^2\boldsymbol{I}]^{-1} (\boldsymbol{y}-\boldsymbol{m}(\boldsymbol{X})) $$
+
+$$ k_{\mathrm{posterior}}(\boldsymbol{x},\boldsymbol{x}^{\prime}) \doteq k_{\mathrm{prior}}(\boldsymbol{x},\boldsymbol{x}^{\prime}) - \boldsymbol{k}(\boldsymbol{x},\boldsymbol{X}) [\boldsymbol{K}(\boldsymbol{X},\boldsymbol{X}) + \sigma_\text{aleatoric}^2\boldsymbol{I}]^{-1} \boldsymbol{k}(\boldsymbol{X},\boldsymbol{x}^{\prime}) $$
+
+Posterior predictive distribution:
+
+$$ f^{\ast} \mid \boldsymbol{X}, \boldsymbol{y}, \boldsymbol{x}^{\ast} \sim \mathcal{N}(m^{\ast}, k^{\ast}) $$
+
+$$ y^{\ast} \mid \boldsymbol{X}, \boldsymbol{y}, \boldsymbol{x}^{\ast} \sim \mathcal{N}(m^{\ast}, k^{\ast} + \sigma_\text{aleatoric}^2) $$
+
+$$ \left[\begin{array}{c}
+\boldsymbol{y} \\
+f^{\ast}
+\end{array}\right] \sim \mathcal{N}\left(\left[\begin{array}{c}
+\boldsymbol{m}(\boldsymbol{X}) \\
+m \left(\boldsymbol{x}^*\right)
+\end{array}\right],\left[\begin{array}{cc}
+K(\boldsymbol{X}, \boldsymbol{X})+\sigma_\text{aleatoric}^2 \boldsymbol{I} & K\left(\boldsymbol{X}, \boldsymbol{x}^{\ast} \right) \\
+K\left(\boldsymbol{x}^{\ast}, \boldsymbol{X}\right) & K\left(\boldsymbol{x}^{\ast}, \boldsymbol{x}^{\ast}\right)
+\end{array}\right]\right) $$
+
+$$ m^{\ast} \doteq m(\boldsymbol{x}^{\ast}) + \boldsymbol{k}(\boldsymbol{x}^{\ast}, \boldsymbol{X}) [\boldsymbol{K}(\boldsymbol{X}, \boldsymbol{X}) + \sigma_\text{aleatoric}^2 \boldsymbol{I}]^{-1} (\boldsymbol{y} - \boldsymbol{m}(\boldsymbol{X})) $$
+
+$$ k^{\ast} \doteq k(\boldsymbol{x}^{\ast},\boldsymbol{x}^{\ast}) - \boldsymbol{k}(\boldsymbol{x}^{\ast},\boldsymbol{X}) [\boldsymbol{K}(\boldsymbol{X},\boldsymbol{X}) + \sigma_\text{aleatoric}^2 \boldsymbol{I}]^{-1} \boldsymbol{k}(\boldsymbol{X}, \boldsymbol{x}^{\ast}) $$
+
+### 3.2 Gaussian processes with linear kernel aka function-space-view Bayesian linear regression
+
+### 3.3 Brownian motion
 
 ## 4 Bayesian deep learning
 

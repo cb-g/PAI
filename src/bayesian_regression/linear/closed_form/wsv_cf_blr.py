@@ -64,8 +64,8 @@ class WSV_CF_BLR:
         self.weights_MLE = np.linalg.pinv(self.X.T @ self.X) @ self.X.T @ self.Y
         self.MLE = self.X_out_of_sample @ self.weights_MLE
         self.MAP = self.X_out_of_sample @ self.mu_posterior
-        self.three_sigma_MLE = 3 * np.diagonal(self.X_out_of_sample @ self.Sigma_posterior @ self.X_out_of_sample.T)
-        self.epistemic_y1, self.epistemic_y2 = self.MAP - self.three_sigma_MLE, self.MAP + self.three_sigma_MLE
+        self.three_sigma = 3 * np.diagonal(self.X_out_of_sample @ self.Sigma_posterior @ self.X_out_of_sample.T)
+        self.epistemic_y1, self.epistemic_y2 = self.MAP - self.three_sigma, self.MAP + self.three_sigma
         self.aleatoric_lower_y1, self.aleatoric_lower_y2 = self.epistemic_y1, self.epistemic_y1 - 3 * self.sigma_aleatoric
         self.aleatoric_upper_y1, self.aleatoric_upper_y2 = self.epistemic_y2, self.epistemic_y2 + 3 * self.sigma_aleatoric
     

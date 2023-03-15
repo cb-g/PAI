@@ -29,7 +29,15 @@ docker run --rm pai
 
 Prior: 
 
-$$ \begin{equation} \boldsymbol{w} \sim \mathcal{N} \big( \mathbf{0}, \sigma_\text{prior}^2 \boldsymbol{I}  \big) \end{equation} $$
+$$ \begin{equation} \boldsymbol{w} \sim \mathcal{N} \big( \boldsymbol{\mu}_\text{prior}, \sigma_\text{prior}^2 \boldsymbol{I}  \big) \end{equation} $$
+
+```python
+mu_prior = np.array([mu_1, mu_2])
+
+Sigma_prior = np.array([[var_1, cov_1_2], [cov_2_1, var_2]])
+
+w = np.random.multivariate_normal(mean = mu_prior, cov = Sigma_prior)
+```
 
 Likelihood: 
 
@@ -45,11 +53,31 @@ $$ \begin{equation}\begin{split}
 \boldsymbol{\mu}_\text{posterior} &\doteq \big(\boldsymbol{X}^{\top} \boldsymbol{X} + \sigma_\text{aleatoric}^2 \sigma_\text{prior}^{-2} \boldsymbol{I}\big)^{-1} \boldsymbol{X}^{\top} \boldsymbol{y} \\ &= \sigma_\text{aleatoric}^{-2} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{X}^{\top} \boldsymbol{y} \\ 
 \end{split} \end{equation} $$ 
 
+```python
+sigm_alea_sq_inv = 1 / (sigma_aleatoric ** 2)
+
+Sigma_posterior = np.linalg.pinv(sigm_alea_sq_inv * X.T @ X + sigm_alea_sq_inv * np.identity(2))
+
+mu_posterior = sigm_alea_sq_inv * Sigma_posterior @ X.T @ Y
+```
+
 Posterior predictive distribution:
 
 $$ \begin{equation} \begin{split} y^\ast \mid \boldsymbol{x}^\ast, \boldsymbol{X}, \boldsymbol{y} \sim  \mathcal{N} \big( &\boldsymbol{\mu}_\text{posterior}^{\top} \boldsymbol{x}^\ast , \\ &\boldsymbol{x}^{\ast \top} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{x}^\ast + \sigma_\text{aleatoric}^2 \big) \end{split} \end{equation} $$
 
 $$ \begin{equation} \sigma^2_\text{epistemic} \doteq \boldsymbol{x}^{\ast \top} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{x}^\ast \end{equation} $$
+
+```python
+MAP = X_out_of_sample @ mu_posterior
+
+three_sigma = 3 * np.diagonal(X_out_of_sample @ Sigma_posterior @ X_out_of_sample.T)
+
+epistemic_y1, epistemic_y2 = MAP - three_sigma, MAP + three_sigma
+
+aleatoric_lower_y1, aleatoric_lower_y2 = epistemic_y1, epistemic_y1 - 3 * sigma_aleatoric
+
+aleatoric_upper_y1, aleatoric_upper_y2 = epistemic_y2, epistemic_y2 + 3 * sigma_aleatoric
+```
 
 <img src="src/bayesian_regression/linear/closed_form/wsv_cf_blr.svg">
 

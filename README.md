@@ -29,7 +29,11 @@ docker run --rm pai
 
 Prior: 
 
-$$ \begin{equation} \boldsymbol{w} \sim \mathcal{N} \big( \boldsymbol{\mu}_\text{prior}, \sigma_\text{prior}^2 \boldsymbol{I}  \big) \end{equation} $$
+<!-- $$ \begin{equation} \boldsymbol{w} \sim \mathcal{N} \big( \boldsymbol{\mu}_\text{prior}, \sigma_\text{prior}^2 \boldsymbol{I}  \big) \end{equation} $$ -->
+
+```math
+\begin{equation} \boldsymbol{w} \sim \mathcal{N} \big( \boldsymbol{\mu}_\text{prior}, \sigma_\text{prior}^2 \boldsymbol{I}  \big) \end{equation}
+```
 
 ```python
 mu_prior = np.array([mu_1, mu_2])
@@ -45,13 +49,27 @@ $$ \begin{equation} \boldsymbol{y} \mid \boldsymbol{X} , \boldsymbol{w} \sim \ma
 
 Posterior: 
 
-$$ \begin{equation} \boldsymbol{w} \mid \boldsymbol{X}, \boldsymbol{y} \sim \mathcal{N} \big( \boldsymbol{\mu}_\text{posterior}, \boldsymbol{\Sigma}_\text{posterior} \big) \end{equation} $$
+<!-- $$ \begin{equation} \boldsymbol{w} \mid \boldsymbol{X}, \boldsymbol{y} \sim \mathcal{N} \big( \boldsymbol{\mu}_\text{posterior}, \boldsymbol{\Sigma}_\text{posterior} \big) \end{equation} $$ -->
 
-$$ \begin{equation} \boldsymbol{\Sigma}_\text{posterior} \doteq \big(\sigma_\text{aleatoric}^{-2} \boldsymbol{X}^{\top} \boldsymbol{X} + \sigma_\text{prior}^{-2} \boldsymbol{I}\big)^{-1} \end{equation} $$
+```math
+\begin{equation} \boldsymbol{w} \mid \boldsymbol{X}, \boldsymbol{y} \sim \mathcal{N} \big( \boldsymbol{\mu}_\text{posterior}, \boldsymbol{\Sigma}_\text{posterior} \big) \end{equation}
+```
 
-$$ \begin{equation}\begin{split} 
+<!-- $$ \begin{equation} \boldsymbol{\Sigma}_\text{posterior} \doteq \big(\sigma_\text{aleatoric}^{-2} \boldsymbol{X}^{\top} \boldsymbol{X} + \sigma_\text{prior}^{-2} \boldsymbol{I}\big)^{-1} \end{equation} $$ -->
+
+```math
+\begin{equation} \boldsymbol{\Sigma}_\text{posterior} \doteq \big(\sigma_\text{aleatoric}^{-2} \boldsymbol{X}^{\top} \boldsymbol{X} + \sigma_\text{prior}^{-2} \boldsymbol{I}\big)^{-1} \end{equation}
+```
+
+<!-- $$ \begin{equation}\begin{split} 
 \boldsymbol{\mu}_\text{posterior} &\doteq \big(\boldsymbol{X}^{\top} \boldsymbol{X} + \sigma_\text{aleatoric}^2 \sigma_\text{prior}^{-2} \boldsymbol{I}\big)^{-1} \boldsymbol{X}^{\top} \boldsymbol{y} \\ &= \sigma_\text{aleatoric}^{-2} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{X}^{\top} \boldsymbol{y} \\ 
-\end{split} \end{equation} $$ 
+\end{split} \end{equation} $$  -->
+
+```math
+\begin{equation}\begin{split} 
+\boldsymbol{\mu}_\text{posterior} &\doteq \big(\boldsymbol{X}^{\top} \boldsymbol{X} + \sigma_\text{aleatoric}^2 \sigma_\text{prior}^{-2} \boldsymbol{I}\big)^{-1} \boldsymbol{X}^{\top} \boldsymbol{y} \\ &= \sigma_\text{aleatoric}^{-2} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{X}^{\top} \boldsymbol{y} \\ 
+\end{split} \end{equation}
+```
 
 ```python
 sigm_alea_sq_inv = 1 / (sigma_aleatoric ** 2)
@@ -63,7 +81,11 @@ mu_posterior = sigm_alea_sq_inv * Sigma_posterior @ X.T @ Y
 
 Posterior predictive distribution:
 
-$$ \begin{equation} \begin{split} y^\ast \mid \boldsymbol{x}^\ast, \boldsymbol{X}, \boldsymbol{y} \sim  \mathcal{N} \big( &\boldsymbol{\mu}_\text{posterior}^{\top} \boldsymbol{x}^\ast , \\ &\boldsymbol{x}^{\ast \top} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{x}^\ast + \sigma_\text{aleatoric}^2 \big) \end{split} \end{equation} $$
+<!-- $$ \begin{equation} \begin{split} y^\ast \mid \boldsymbol{x}^\ast, \boldsymbol{X}, \boldsymbol{y} \sim  \mathcal{N} \big( &\boldsymbol{\mu}_\text{posterior}^{\top} \boldsymbol{x}^\ast , \\ &\boldsymbol{x}^{\ast \top} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{x}^\ast + \sigma_\text{aleatoric}^2 \big) \end{split} \end{equation} $$ -->
+
+```math
+\begin{equation} \begin{split} y^\ast \mid \boldsymbol{x}^\ast, \boldsymbol{X}, \boldsymbol{y} \sim  \mathcal{N} \big( &\boldsymbol{\mu}_\text{posterior}^{\top} \boldsymbol{x}^\ast , \\ &\boldsymbol{x}^{\ast \top} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{x}^\ast + \sigma_\text{aleatoric}^2 \big) \end{split} \end{equation}
+```
 
 $$ \begin{equation} \sigma^2_\text{epistemic} \doteq \boldsymbol{x}^{\ast \top} \boldsymbol{\Sigma}_\text{posterior} \boldsymbol{x}^\ast \end{equation} $$
 
@@ -105,7 +127,7 @@ $$ f(\boldsymbol{x}) \sim \mathcal{GP}(m_{\text{prior}}(\boldsymbol{x}), k_{\tex
 
 Posterior: 
 
-$$ f(\boldsymbol{x}) \mid \boldsymbol{X}, \boldsymbol{y} \sim \mathcal{N}(m_{\mathrm{posterior}}(\boldsymbol{x}), k_{\mathrm{posterior}}(\boldsymbol{x},\boldsymbol{x}')) $$
+$$ f(\boldsymbol{x}) \mid \boldsymbol{X}, \boldsymbol{y} \sim \mathcal{GP}(m_{\mathrm{posterior}}(\boldsymbol{x}), k_{\mathrm{posterior}}(\boldsymbol{x},\boldsymbol{x}')) $$
 
 $$ y \mid \boldsymbol{X}, \boldsymbol{y} \sim \mathcal{N}(m_{\mathrm{posterior}}(\boldsymbol{x}), k_{\mathrm{posterior}}(\boldsymbol{x},\boldsymbol{x}') + \sigma_\text{aleatoric}^2) $$
 
@@ -115,7 +137,7 @@ $$ k_{\mathrm{posterior}}(\boldsymbol{x},\boldsymbol{x}^{\prime}) \doteq k_{\mat
 
 Posterior predictive distribution:
 
-$$ f^{\ast} \mid \boldsymbol{X}, \boldsymbol{y}, \boldsymbol{x}^{\ast} \sim \mathcal{N}(m^{\ast}, k^{\ast}) $$
+$$ f^{\ast} \mid \boldsymbol{X}, \boldsymbol{y}, \boldsymbol{x}^{\ast} \sim \mathcal{GP}(m^{\ast}, k^{\ast}) $$
 
 $$ y^{\ast} \mid \boldsymbol{X}, \boldsymbol{y}, \boldsymbol{x}^{\ast} \sim \mathcal{N}(m^{\ast}, k^{\ast} + \sigma_\text{aleatoric}^2) $$
 
